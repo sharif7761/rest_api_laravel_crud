@@ -46,19 +46,11 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::findorfail($id);
+        return response()->json($course);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +61,9 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $course = Course::findorfail($id);
+        $course->update($request->all());
+        return response('updated');
     }
 
     /**
@@ -80,6 +74,7 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Course::where('id',$id)->delete();
+        return response('deleted');
     }
 }
